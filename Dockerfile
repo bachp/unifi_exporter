@@ -1,6 +1,12 @@
-FROM alpine:latest
+FROM golang:1.8-alpine
+
+ADD . $GOPATH/src/github.com/mdlayher/unifi_exporter
+
+RUN apk add --no-cache git
+RUN go get -v github.com/mdlayher/unifi_exporter/cmd/unifi_exporter
 
 EXPOSE 9130
-ENTRYPOINT ["/bin/unifi_exporter"]
 
-ADD unifi_exporter /bin/unifi_exporter
+ENTRYPOINT ["unifi_exporter"]
+CMD [""]
+
